@@ -90,10 +90,28 @@ it should be clear what the functions in `translate.py` should be doing to pass
 the tests.
 
 **NOTE: You do NOT need to know how the tests work! You only need to add code
-to `translate.py`**
+to `translate.py`.**
+The tests only care about what each function returns, not *how* the functions
+work.
 
-Make sure you are using Git to commit and push your work often as you work on
-this exercise.
+**NOTE: You do NOT need to change the code below the `if __name__ ==
+'__main__':` line. Only the functions themselves need work.**
+
+## Suggestions
+
+-   Make sure you are using Git to commit and push your work often as you work
+    on this exercise.
+-   `print` statements are your friend while you are debugging.
+-   `assert` statements are also your friend.
+-   If a function is getting long, define your own new functions to keep the
+    code as modular as possible.
+-   Once you get the script working and all the tests passing, think about how
+    you might improve the script. For example:
+    -   What happens if a DNA sequence is passed to your functions? How would
+        you want to handle this?
+    -   Should your functions only accommodate strings for the sequence
+        argument? What if someone passes a list? a tuple? How do you want your
+        functions to behave?
 
 Good luck!
 
@@ -114,4 +132,3 @@ Oaks](http://phyletica.org) from the National Science Foundation (DEB 1656004).
 # License
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.
-
