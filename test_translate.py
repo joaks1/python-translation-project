@@ -17,11 +17,13 @@ class TestTranslateBaseClass(unittest.TestCase):
                 rna_sequence = rna_seq,
                 genetic_code = gen_code)
         message = (
+                "\n\n"
                 "Calling `translate_sequence` with `rna_sequence` '{0}'.\n"
                 "Expecting '{1}', but '{2}' was returned".format(
                         rna_seq,
                         expected_amino_acid_seq,
                         amino_acid_seq))
+        self.assertEqual(amino_acid_seq, expected_amino_acid_seq, message)
 
 class TestTranslateSequence(TestTranslateBaseClass):
 
@@ -31,6 +33,82 @@ class TestTranslateSequence(TestTranslateBaseClass):
         self.run_translate_sequence(
                 rna_seq = rna_seq,
                 expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_rna_sequence_with_one_base(self):
+        rna_seq = "A"
+        expected_amino_acid_seq = ""
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_rna_sequence_with_two_bases(self):
+        rna_seq = "AG"
+        expected_amino_acid_seq = ""
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_only_stop_codon(self):
+        rna_seq = "UGA"
+        expected_amino_acid_seq = ""
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_one_codon(self):
+        rna_seq = "GUC"
+        expected_amino_acid_seq = "V"
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+        rna_seq = "GAA"
+        expected_amino_acid_seq = "E"
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_one_codon_lower_case(self):
+        rna_seq = "guc"
+        expected_amino_acid_seq = "V"
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+        rna_seq = "gaa"
+        expected_amino_acid_seq = "E"
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_no_stop_to_end(self):
+        rna_seq = "GUCGAACGA"
+        expected_amino_acid_seq = "VER"
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_no_stop_with_extra_base(self):
+        rna_seq = "GUCGAACGAA"
+        expected_amino_acid_seq = "VER"
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_stop_codon_at_end(self):
+        rna_seq = "GUCGAACGAUAA"
+        expected_amino_acid_seq = "VER"
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
+    def test_stop_codon_within(self):
+        rna_seq = "GUCGAAUAACGA"
+        expected_amino_acid_seq = "VE"
+        self.run_translate_sequence(
+                rna_seq = rna_seq,
+                expected_amino_acid_seq = expected_amino_acid_seq)
+
 
 if __name__ == '__main__':
     unittest.main() 
