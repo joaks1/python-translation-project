@@ -39,7 +39,7 @@ def get_reverse(sequence):
 
     If `sequence` is empty, and empty string is returned.
     """
-    seq_list = list(sequence)
+    seq_list = list(sequence.upper())
     seq_list.reverse()
     rev_seq = "".join(seq_list)
     return rev_seq
@@ -51,7 +51,17 @@ def get_complement(sequence):
 
     If `sequence` is empty, and empty string is returned.
     """
-    pass
+    rna_complement = {
+            'A': 'U',
+            'C': 'G',
+            'G': 'C',
+            'U': 'A',
+            }
+    complementary_seq_list = []
+    for character in sequence:
+        complementary_seq_list.append(rna_complement[character.upper()])
+    complementary_seq = "".join(complementary_seq_list)
+    return complementary_seq
 
 def reverse_and_complement(sequence):
     """Get the reversed and complemented form of `sequence`.
