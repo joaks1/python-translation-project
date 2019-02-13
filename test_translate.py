@@ -310,7 +310,7 @@ class TestReverseAndComplement(TestTranslateBaseClass):
         self.run_reverse_and_complement(seq, expected_result)
 
 
-class TestGetAllTranslations(TestTranslateBaseClass):
+class TestGetLongestPeptide(TestTranslateBaseClass):
 
     def test_no_translations(self):
         rna_seq = "GUCGAAUAACGA"
