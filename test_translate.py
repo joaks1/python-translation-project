@@ -94,7 +94,7 @@ class TestTranslateBaseClass(unittest.TestCase):
         self.assertEqual(rc_seq, expected_result, message)
 
     def run_get_longest_peptide(self, rna_seq,
-            expected_amino_acid_seq,
+            expected_result,
             gen_code = None):
         if gen_code is None:
             gen_code = self.genetic_code
@@ -107,9 +107,9 @@ class TestTranslateBaseClass(unittest.TestCase):
                 "\t{0!r}\n"
                 "Expecting {1!r}, but {2!r} was returned".format(
                         rna_seq,
-                        expected_amino_acid_seq,
+                        expected_result,
                         amino_acid_seq))
-        self.assertEqual(amino_acid_seq, expected_amino_acid_seq, message)
+        self.assertEqual(amino_acid_seq, expected_result, message)
 
 
 class TestTranslateSequence(TestTranslateBaseClass):
