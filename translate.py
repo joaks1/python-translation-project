@@ -167,3 +167,5 @@ if __name__ == '__main__':
             rna_seq,
             longest_peptide)
     sys.stdout.write(message)
+    if longest_peptide == "MYWHATAPYTHQNISTA":
+        sys.stdout.write("Indeed.\n")
