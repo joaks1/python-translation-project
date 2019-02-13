@@ -71,7 +71,9 @@ def reverse_and_complement(sequence):
 
     If `sequence` is empty, and empty string is returned.
     """
-    pass
+    reverse_seq = get_reverse(sequence)
+    reverse_complement_seq = get_complement(reverse_seq)
+    return reverse_complement_seq
 
 def get_longest_peptide(rna_sequence, genetic_code):
     """Get the longest peptide encoded by an RNA sequence.
