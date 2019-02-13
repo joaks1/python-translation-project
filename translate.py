@@ -122,7 +122,23 @@ def get_longest_peptide(rna_sequence, genetic_code):
     If no amino acids can be translated from `rna_sequence` nor its reverse and
     complement, an empty list is returned.
     """
-    pass
+    peptides = get_all_translations(rna_sequence = rna_sequence,
+            genetic_code = genetic_code)
+    rev_comp_seq = reverse_and_complement(rna_sequence)
+    rev_comp_peptides = get_all_translations(rna_sequence = rev_comp_seq,
+            genetic_code = genetic_code)
+    peptides += rev_comp_peptides
+    if not peptides:
+        return ""
+    if len(peptides) < 2:
+        return peptides[0]
+    most_number_of_bases = -1
+    longest_peptide_index = -1
+    for peptide_index, aa_seq in enumerate(peptides):
+        if len(aa_seq) > most_number_of_bases:
+            longest_peptide_index = peptide_index
+            most_number_of_bases = len(aa_seq)
+    return peptides[longest_peptide_index]
 
 
 if __name__ == '__main__':
