@@ -18,12 +18,81 @@ class TestTranslateBaseClass(unittest.TestCase):
                 genetic_code = gen_code)
         message = (
                 "\n\n"
-                "Calling `translate_sequence` with `rna_sequence` '{0}'.\n"
-                "Expecting '{1}', but '{2}' was returned".format(
+                "Calling `translate_sequence` with `rna_sequence`:\n"
+                "\t{0!r}\n"
+                "Expecting {1!r}, but {2!r} was returned".format(
                         rna_seq,
                         expected_amino_acid_seq,
                         amino_acid_seq))
         self.assertEqual(amino_acid_seq, expected_amino_acid_seq, message)
+
+    def run_get_all_translations(self, rna_seq,
+            expected_results,
+            gen_code = None):
+        if gen_code is None:
+            gen_code = self.genetic_code
+        amino_acid_seqs = translate.get_all_translations(
+                rna_sequence = rna_seq,
+                genetic_code = gen_code)
+        message = (
+                "\n\n"
+                "Calling `run_get_all_translations` with `rna_sequence`:\n"
+                "\t{0!r}\n"
+                "Expecting {1!r}, but {2!r} was returned".format(
+                        rna_seq,
+                        expected_results,
+                        amino_acid_seqs))
+        if amino_acid_seqs:
+            amino_acid_seqs = sorted(amino_acid_seqs)
+        if expected_results:
+            expected_results = sorted(expected_results)
+        self.assertEqual(amino_acid_seqs, expected_results, message)
+
+    def run_get_reverse(self, seq, expected_result):
+        rev_seq = translate.get_reverse(seq)
+        message = (
+                "\n\n"
+                "Calling `get_reverse` with argument:\n"
+                "\t{0!r}\n"
+                "Expecting\n"
+                "\t{1!r}\n"
+                "to be returned, but got\n"
+                "\t{2!r}\n".format(
+                        seq,
+                        expected_result,
+                        rev_seq))
+        self.assertEqual(rev_seq, expected_result, message)
+
+    def run_get_complement(self, seq, expected_result):
+        comp_seq = translate.get_complement(seq)
+        message = (
+                "\n\n"
+                "Calling `get_complement` with argument:\n"
+                "\t{0!r}\n"
+                "Expecting\n"
+                "\t{1!r}\n"
+                "to be returned, but got\n"
+                "\t{2!r}\n".format(
+                        seq,
+                        expected_result,
+                        comp_seq))
+        self.assertEqual(comp_seq, expected_result, message)
+
+    def run_reverse_and_complement(self, seq, expected_result):
+        rc_seq = translate.reverse_and_complement(seq)
+        message = (
+                "\n\n"
+                "Calling `reverse_and_complement` with argument:\n"
+                "\t{0!r}\n"
+                "Expecting\n"
+                "\t{1!r}\n"
+                "to be returned, but got\n"
+                "\t{2!r}\n".format(
+                        seq,
+                        expected_result,
+                        rc_seq))
+        self.assertEqual(rc_seq, expected_result, message)
+
 
 class TestTranslateSequence(TestTranslateBaseClass):
 
@@ -108,6 +177,119 @@ class TestTranslateSequence(TestTranslateBaseClass):
         self.run_translate_sequence(
                 rna_seq = rna_seq,
                 expected_amino_acid_seq = expected_amino_acid_seq)
+
+
+class TestGetAllTranslations(TestTranslateBaseClass):
+
+    def test_no_translations(self):
+        rna_seq = "GUCGAAUAACGA"
+        expected_amino_acid_seqs = []
+        self.run_get_all_translations(
+                rna_seq = rna_seq,
+                expected_results = expected_amino_acid_seqs)
+
+    def test_one_start_at_end(self):
+        rna_seq = "GUCGAAUAACGAAUG"
+        expected_amino_acid_seqs = ["M"]
+        self.run_get_all_translations(
+                rna_seq = rna_seq,
+                expected_results = expected_amino_acid_seqs)
+
+    def test_two_short_peptides(self):
+        rna_seq = "CCUGAAUGACGUACGUAUGACUGCAGUACGUUACGUACG"
+        expected_amino_acid_seqs = [
+                "MTYV",
+                "MTAVRYV",
+                ]
+        self.run_get_all_translations(
+                rna_seq = rna_seq,
+                expected_results = expected_amino_acid_seqs)
+
+    def test_two_short_peptides_lower_case(self):
+        rna_seq = "ccugaaugacguacguaugacugcaguacguuacguacg"
+        expected_amino_acid_seqs = [
+                "MTYV",
+                "MTAVRYV",
+                ]
+        self.run_get_all_translations(
+                rna_seq = rna_seq,
+                expected_results = expected_amino_acid_seqs)
+
+    def test_two_short_peptides_at_beginning(self):
+        rna_seq = "AUGACGUACGUAUGACUGCAGUACGUUACGUACG"
+        expected_amino_acid_seqs = [
+                "MTYV",
+                "MTAVRYV",
+                ]
+        self.run_get_all_translations(
+                rna_seq = rna_seq,
+                expected_results = expected_amino_acid_seqs)
+
+
+class TestGetReverse(TestTranslateBaseClass):
+    def test_empty_string(self):
+        seq = ""
+        expected_result = ""
+        self.run_get_reverse(seq, expected_result)
+
+    def test_one_base(self):
+        seq = "A"
+        expected_result = "A"
+        self.run_get_reverse(seq, expected_result)
+
+    def test_simple(self):
+        seq = "AUGC"
+        expected_result = "CGUA"
+        self.run_get_reverse(seq, expected_result)
+
+    def test_simple_lower_case(self):
+        seq = "augc"
+        expected_result = "CGUA"
+        self.run_get_reverse(seq, expected_result)
+
+
+class TestGetComplement(TestTranslateBaseClass):
+    def test_empty_string(self):
+        seq = ""
+        expected_result = ""
+        self.run_get_complement(seq, expected_result)
+
+    def test_one_base(self):
+        seq = "G"
+        expected_result = "C"
+        self.run_get_complement(seq, expected_result)
+
+    def test_simple(self):
+        seq = "AUGC"
+        expected_result = "UACG"
+        self.run_get_complement(seq, expected_result)
+
+    def test_simple_lower_case(self):
+        seq = "augc"
+        expected_result = "UACG"
+        self.run_get_complement(seq, expected_result)
+
+
+class TestReverseAndComplement(TestTranslateBaseClass):
+    def test_empty_string(self):
+        seq = ""
+        expected_result = ""
+        self.run_reverse_and_complement(seq, expected_result)
+
+    def test_one_base(self):
+        seq = "A"
+        expected_result = "U"
+        self.run_reverse_and_complement(seq, expected_result)
+
+    def test_simple(self):
+        seq = "AUGC"
+        expected_result = "GCAU"
+        self.run_reverse_and_complement(seq, expected_result)
+
+    def test_simple(self):
+        seq = "augc"
+        expected_result = "GCAU"
+        self.run_reverse_and_complement(seq, expected_result)
 
 
 if __name__ == '__main__':
