@@ -29,15 +29,11 @@ At this point, you should have
 1.  Fork [this repository](https://github.com/joaks1/au-bootcamp-git-intro), by
     clicking the 'Fork' button on the upper right of the page.
 
-    ![Github fork button](util/images/github-fork-button.png)
-
     After a few seconds, you should be looking at *your* 
     copy of the repo in your own Github account.
 
 1.  Click the 'Clone or download' button, and copy the URL of the repo via the
     'copy to clipboard' button.
-
-    ![Github copy URL](util/images/github-clipboard-button.png)
 
 1.  In your terminal, navigate to where you want to keep this repo (you can
     always move it later, so just your home directory is fine). Then type:
