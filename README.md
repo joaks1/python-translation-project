@@ -112,6 +112,12 @@ work.
     -   Should your functions only accommodate strings for the sequence
         argument? What if someone passes a list? a tuple? How do you want your
         functions to behave?
+    -   Should you have a default genetic code, so the caller doesn't always
+        have to create and pass a big dictionary to your functions? How would
+        you do this in a way that does not rely on *global* variables? How
+        would could avoid globals *and* avoid creating multiple instances of
+        the genetic code?  This is a bit advanced, but a good solution might
+        involve creating a class that manages genetic codes.
 
 Good luck!
 
