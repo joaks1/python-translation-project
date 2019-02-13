@@ -14,7 +14,7 @@ def translate_sequence(rna_sequence, genetic_code):
     pass
 
 def get_all_translations(rna_sequence, genetic_code):
-    """Get a list of all amino acid sequences encoded in an RNA sequence.
+    """Get a list of all amino acid sequences encoded by an RNA sequence.
 
     All three reading frames of `rna_sequence` are scanned from 'left' to
     'right', and the generation of a sequence of amino acids is started
@@ -55,6 +55,19 @@ def reverse_and_complement(sequence):
     of `sequence`.
 
     If `sequence` is empty, and empty string is returned.
+    """
+    pass
+
+def get_longest_peptide(rna_sequence, genetic_code):
+    """Get the longest peptide encoded by an RNA sequence.
+
+    Explore six reading frames of `rna_sequence` (three reading frames of the
+    current orientation, and the reversed and complemented form) and return (as
+    a string) the longest sequence of amino acids that it encodes, according to
+    the `genetic_code`.
+
+    If no amino acids can be translated from `rna_sequence` nor its reverse and
+    complement, an empty list is returned.
     """
     pass
 

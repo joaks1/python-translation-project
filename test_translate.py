@@ -93,6 +93,24 @@ class TestTranslateBaseClass(unittest.TestCase):
                         rc_seq))
         self.assertEqual(rc_seq, expected_result, message)
 
+    def run_get_longest_peptide(self, rna_seq,
+            expected_amino_acid_seq,
+            gen_code = None):
+        if gen_code is None:
+            gen_code = self.genetic_code
+        amino_acid_seq = translate.get_longest_peptide(
+                rna_sequence = rna_seq,
+                genetic_code = gen_code)
+        message = (
+                "\n\n"
+                "Calling `get_longest_peptide` with `rna_sequence`:\n"
+                "\t{0!r}\n"
+                "Expecting {1!r}, but {2!r} was returned".format(
+                        rna_seq,
+                        expected_amino_acid_seq,
+                        amino_acid_seq))
+        self.assertEqual(amino_acid_seq, expected_amino_acid_seq, message)
+
 
 class TestTranslateSequence(TestTranslateBaseClass):
 
@@ -290,6 +308,49 @@ class TestReverseAndComplement(TestTranslateBaseClass):
         seq = "augc"
         expected_result = "GCAU"
         self.run_reverse_and_complement(seq, expected_result)
+
+
+class TestGetAllTranslations(TestTranslateBaseClass):
+
+    def test_no_translations(self):
+        rna_seq = "GUCGAAUAACGA"
+        # UCGUUAUUCGAC
+        expected_amino_acid_seq = ""
+        self.run_get_longest_peptide(
+                rna_seq = rna_seq,
+                expected_result = expected_amino_acid_seq)
+
+    def test_one_start_at_end(self):
+        rna_seq = "GUCGAAUAACGAAUG"
+        # CAUUCGUUAUUCGAC
+        expected_amino_acid_seq = "M"
+        self.run_get_longest_peptide(
+                rna_seq = rna_seq,
+                expected_result = expected_amino_acid_seq)
+
+    def test_two_short_peptides(self):
+        rna_seq = "CCUGAAUGACGUACGUAUGACUGCAGUACGUUACGUACG"
+        #          CGUACGUAACGUACUGCAGUCAUACGUACGUCAUUCAGG
+        expected_amino_acid_seq = "MTAVRYV"
+        self.run_get_longest_peptide(
+                rna_seq = rna_seq,
+                expected_result = expected_amino_acid_seq)
+
+    def test_two_short_peptides_in_rev_comp(self):
+        rna_seq = "CGUACGUAACGUACUGCAGUCAUACGUACGUCAUUCAGG"
+        #         "CCUGAAUGACGUACGUAUGACUGCAGUACGUUACGUACG"
+        expected_amino_acid_seq = "MTAVRYV"
+        self.run_get_longest_peptide(
+                rna_seq = rna_seq,
+                expected_result = expected_amino_acid_seq)
+
+    def test_two_short_peptides_lower_case(self):
+        rna_seq = "ccugaaugacguacguaugacugcaguacguuacguacg"
+        #          CGUACGUAACGUACUGCAGUCAUACGUACGUCAUUCAGG
+        expected_amino_acid_seq = "MTAVRYV"
+        self.run_get_longest_peptide(
+                rna_seq = rna_seq,
+                expected_result = expected_amino_acid_seq)
 
 
 if __name__ == '__main__':
