@@ -36,7 +36,7 @@ class TestTranslateBaseClass(unittest.TestCase):
                 genetic_code = gen_code)
         message = (
                 "\n\n"
-                "Calling `run_get_all_translations` with `rna_sequence`:\n"
+                "Calling `get_all_translations` with `rna_sequence`:\n"
                 "\t{0!r}\n"
                 "Expecting {1!r}, but {2!r} was returned".format(
                         rna_seq,
