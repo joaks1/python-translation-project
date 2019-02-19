@@ -37,7 +37,7 @@ def get_reverse(sequence):
 
     Returns a string with `sequence` in the reverse order.
 
-    If `sequence` is empty, and empty string is returned.
+    If `sequence` is empty, an empty string is returned.
     """
     pass
 
@@ -46,7 +46,7 @@ def get_complement(sequence):
 
     Returns a string with the complementary sequence of `sequence`.
 
-    If `sequence` is empty, and empty string is returned.
+    If `sequence` is empty, an empty string is returned.
     """
     pass
 
@@ -56,7 +56,7 @@ def reverse_and_complement(sequence):
     Returns a string that is the reversed and complemented sequence
     of `sequence`.
 
-    If `sequence` is empty, and empty string is returned.
+    If `sequence` is empty, an empty string is returned.
     """
     pass
 
