@@ -2,44 +2,12 @@
 
 import unittest
 
+import test_util
 import translate
 
-class TestTranslateBaseClass(unittest.TestCase):
+class TestTranslateBaseClass(test_util.TestBaseClass):
     def setUp(self):
         self.genetic_code = {'GUC': 'V', 'ACC': 'T', 'GUA': 'V', 'GUG': 'V', 'ACU': 'T', 'AAC': 'N', 'CCU': 'P', 'UGG': 'W', 'AGC': 'S', 'AUC': 'I', 'CAU': 'H', 'AAU': 'N', 'AGU': 'S', 'GUU': 'V', 'CAC': 'H', 'ACG': 'T', 'CCG': 'P', 'CCA': 'P', 'ACA': 'T', 'CCC': 'P', 'UGU': 'C', 'GGU': 'G', 'UCU': 'S', 'GCG': 'A', 'UGC': 'C', 'CAG': 'Q', 'GAU': 'D', 'UAU': 'Y', 'CGG': 'R', 'UCG': 'S', 'AGG': 'R', 'GGG': 'G', 'UCC': 'S', 'UCA': 'S', 'UAA': '*', 'GGA': 'G', 'UAC': 'Y', 'GAC': 'D', 'UAG': '*', 'AUA': 'I', 'GCA': 'A', 'CUU': 'L', 'GGC': 'G', 'AUG': 'M', 'CUG': 'L', 'GAG': 'E', 'CUC': 'L', 'AGA': 'R', 'CUA': 'L', 'GCC': 'A', 'AAA': 'K', 'AAG': 'K', 'CAA': 'Q', 'UUU': 'F', 'CGU': 'R', 'CGC': 'R', 'CGA': 'R', 'GCU': 'A', 'GAA': 'E', 'AUU': 'I', 'UUG': 'L', 'UUA': 'L', 'UGA': '*', 'UUC': 'F'}
-
-    def get_failure_message(self, function, key_word_args, expected_result,
-            result):
-        message = (
-                "\n\n"
-                "Calling `{function_name}` with the following parameters:\n".format(
-                        function_name = function.__name__)
-                )
-        for parameter_name, parameter_value in key_word_args.items():
-            message += "\t{parameter_name} = {parameter_value!r}    {parameter_type}\n".format(
-                    parameter_name = parameter_name,
-                    parameter_value = parameter_value,
-                    parameter_type = type(parameter_value))
-        message += (
-                "Expecting\n"
-                "\t{expected_result!r}    {expected_type}\n"
-                "to be returned, but got\n"
-                "\t{result!r}    {returned_type}\n".format(
-                        expected_result = expected_result,
-                        expected_type = type(expected_result),
-                        result = result,
-                        returned_type = type(result))
-                )
-        return message
-
-    def run_test_of_function(self, function, key_word_args, expected_result):
-        result = function(**key_word_args)
-        self.assertEqual(result, expected_result,
-                self.get_failure_message(
-                        function = function,
-                        key_word_args = key_word_args,
-                        expected_result = expected_result,
-                        result = result))
 
     def run_translate_sequence(self, rna_seq,
             expected_amino_acid_seq,
