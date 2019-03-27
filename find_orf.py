@@ -185,6 +185,8 @@ def parse_sequence_from_path(path):
 
 
 def main():
+    import argparse
+
     # Create a command-line parser object
     parser = argparse.ArgumentParser(
             formatter_class = argparse.ArgumentDefaultsHelpFormatter)
@@ -192,7 +194,6 @@ def main():
     # Tell the parser what command-line arguments this script can receive
     parser.add_argument('sequence',
             metavar = 'SEQUENCE',
-            nargs = '+',
             type = str,
             help = ('The sequence to search for an open-reading frame. '
                     'If the path flag (\'-p\'/\'--path\') is specified, '
@@ -222,6 +223,11 @@ def main():
         sequence = parse_sequence_from_path(args.sequence)
     else:
         sequence = args.sequence
+
+    orf = find_first_orf(sequence = sequence,
+            start_codons = args.start_codons,
+            stop_codons = args.stop_codons)
+    sys.stdout.write('{}\n'.format(orf))
 
 
 if __name__ == '__main__':
