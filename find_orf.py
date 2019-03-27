@@ -33,11 +33,31 @@ def vet_nucleotide_sequence(sequence):
     Traceback (most recent call last):
         ...
     Exception: Invalid sequence: 'AUTGC'
-    """
-    rna_pattern_str = r'AUCG'
-    rna_pattern = re.compile(rna_pattern_str)
 
+    Don't allow whitespace (or other characters) before, within, or after!
+    >>> vet_nucleotide_sequence(' ACGT ACGT ') == None
+    Traceback (most recent call last):
+        ...
+    Exception: Invalid sequence: ' ACGT ACGT '
+    """
+    ##########################################################################
+    ############################ EDIT CODE BELOW #############################
+    # `rna_pattern_str` and `dna_pattern_str` need to be regular expressions
+    # that will match any string of RNA and DNA bases, respectively (and only
+    # strings of RNA and DNA bases).
+    # Currently, `rna_pattern_str` and `dna_pattern_str` are strings of literal
+    # characters.
+    # These are valid regular expressions, but they will only match their
+    # respective strings exactly.
+    # Change `rna_pattern_str` and `dna_pattern_str` so that they will match
+    # any valid RNA and DNA sequence strings, respectively (and only strings of
+    # RNA and DNA bases).
+    # Read the docstring above for additional clues.
+    rna_pattern_str = r'AUCG'
     dna_pattern_str = r'ATCG'
+    ##########################################################################
+
+    rna_pattern = re.compile(rna_pattern_str)
     dna_pattern = re.compile(dna_pattern_str)
 
     if rna_pattern.match(sequence):
@@ -69,6 +89,9 @@ def vet_codon(codon):
     >>> vet_codon('AUG') == None
     True
 
+    >>> vet_codon('aug') == None
+    True
+
     >>> vet_codon('ATG')
     Traceback (most recent call last):
         ...
@@ -79,7 +102,18 @@ def vet_codon(codon):
         ...
     Exception: Invalid codon: 'AUGG'
     """
+    ##########################################################################
+    ############################ EDIT CODE BELOW #############################
+    # `codon_pattern_str` needs to be a regular expression that will match any
+    # codon (but only one codon).
+    # Currently, `codon_pattern_str` is only a string of literal characters.
+    # This is a valid regular expression, but it will only match 'AUG' exactly.
+    # Change `codon_pattern_str` so that it will match any valid codons, and
+    # only valid codons.
+    # Read the docstring above for additional clues.
     codon_pattern_str = r'AUG'
+    ##########################################################################
+
     codon_pattern = re.compile(codon_pattern_str)
 
     if codon_pattern.match(codon):
@@ -147,8 +181,22 @@ def find_first_orf(sequence,
     # Make sure seq is RNA
     seq = seq.replace('T', 'U')
 
-    # This is the regular expression
+    ##########################################################################
+    ############################ EDIT CODE BELOW #############################
+    # `orf_pattern_str` needs to be a regular expression that will match an
+    # open reading frame within a string of RNA bases. At this point we know
+    # the string only contains uppercase A, C, G, and U.
+    # I recommend starting by hardcoding the standard start and stop codons
+    # (the ones listed as defaults for this function) into the regular
+    # expression. After you get that working, then try generalizing it to work
+    # for any start/stop codons.
+    # Currently, `orf_pattern_str` is only a string of literal characters. This
+    # is a valid regular expression, but it will only match 'AUGGUAUAA'
+    # exactly. Change `orf_pattern_str` so that it will match any open reading
+    # frame.
+    # Read the docstring above for additional clues.
     orf_pattern_str = r'AUGGUAUAA'
+    ##########################################################################
 
     # Create the regular expression object
     orf_pattern = re.compile(orf_pattern_str)
