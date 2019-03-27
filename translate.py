@@ -63,13 +63,13 @@ def reverse_and_complement(sequence):
 def get_longest_peptide(rna_sequence, genetic_code):
     """Get the longest peptide encoded by an RNA sequence.
 
-    Explore six reading frames of `rna_sequence` (three reading frames of the
-    current orientation, and the reversed and complemented form) and return (as
-    a string) the longest sequence of amino acids that it encodes, according to
-    the `genetic_code`.
+    Explore six reading frames of `rna_sequence` (the three reading frames of
+    `rna_sequence`, and the three reading frames of the reverse and complement
+    of `rna_sequence`) and return (as a string) the longest sequence of amino
+    acids that it encodes, according to the `genetic_code`.
 
     If no amino acids can be translated from `rna_sequence` nor its reverse and
-    complement, an empty list is returned.
+    complement, an empty string is returned.
     """
     pass
 
