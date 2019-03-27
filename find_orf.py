@@ -187,6 +187,7 @@ def parse_sequence_from_path(path):
 
 def main():
     import argparse
+
     # Create a command-line parser object
     parser = argparse.ArgumentParser(
             formatter_class = argparse.ArgumentDefaultsHelpFormatter)
@@ -227,7 +228,7 @@ def main():
     orf = find_first_orf(sequence = sequence,
             start_codons = args.start_codons,
             stop_codons = args.stop_codons)
-    sys.stdout.write("{}\n".format(orf))
+    sys.stdout.write('{}\n'.format(orf))
 
 
 if __name__ == '__main__':
