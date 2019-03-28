@@ -32,17 +32,25 @@ class TestTranslateBaseClass(test_util.TestBaseClass):
                 "rna_sequence" : rna_seq,
                 "genetic_code" : gen_code,
                 }
-        amino_acid_seqs = translate.get_all_translations(**key_word_args)
-        if amino_acid_seqs:
-            amino_acid_seqs = sorted(amino_acid_seqs)
+        result = None
+        result_is_exception = False
+        try:
+            result = translate.get_all_translations(**key_word_args)
+        except BaseException as e:
+            result_is_exception = True
+            result = e
+            pass
+        if result and (not result_is_exception):
+            result = sorted(result)
         if expected_result:
             expected_result = sorted(expected_result)
-        self.assertEqual(amino_acid_seqs, expected_result,
+        self.assertEqual(result, expected_result,
                 self.get_failure_message(
                         function = translate.get_all_translations,
                         key_word_args = key_word_args,
                         expected_result = expected_result,
-                        result = amino_acid_seqs))
+                        result = result,
+                        result_is_exception = result_is_exception))
 
     def run_get_reverse(self, seq, expected_result):
         self.run_test_of_function(
