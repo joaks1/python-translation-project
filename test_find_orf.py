@@ -69,6 +69,10 @@ class TestVetNucleotideSequence(TestFindOrfBaseClass):
         seq = "ACGUT"
         self.run_vet_nucleotide_sequence(seq, True)
 
+    def test_empty_string(self):
+        seq = ""
+        self.run_vet_nucleotide_sequence(seq, False)
+
 
 class TestVetCodon(TestFindOrfBaseClass):
     def test_codon_lower(self):
