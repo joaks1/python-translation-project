@@ -29,22 +29,26 @@ def vet_nucleotide_sequence(sequence):
     Exception: Invalid sequence: 'not a valid sequence'
 
     Don't allow mixing of DNA and RNA!
-    >>> vet_nucleotide_sequence('AUTGC') == None
+    >>> vet_nucleotide_sequence('AUTGC')
     Traceback (most recent call last):
         ...
     Exception: Invalid sequence: 'AUTGC'
 
     Don't allow whitespace (or other characters) before, within, or after!
-    >>> vet_nucleotide_sequence(' ACGT ACGT ') == None
+    >>> vet_nucleotide_sequence(' ACGT ACGT ')
     Traceback (most recent call last):
         ...
     Exception: Invalid sequence: ' ACGT ACGT '
+
+    But, an empty string should be deemed valid
+    >>> vet_nucleotide_sequence('') == None
+    True
     """
     ##########################################################################
     ############################ EDIT CODE BELOW #############################
     # `rna_pattern_str` and `dna_pattern_str` need to be regular expressions
-    # that will match any string of RNA and DNA bases, respectively (and only
-    # strings of RNA and DNA bases).
+    # that will match any string of zero or more RNA and DNA bases,
+    # respectively (and only strings of zero or more RNA and DNA bases).
     # Currently, `rna_pattern_str` and `dna_pattern_str` are strings of literal
     # characters.
     # These are valid regular expressions, but they will only match their
@@ -86,17 +90,21 @@ def vet_codon(codon):
 
     Examples
     --------
+    Valid codon
     >>> vet_codon('AUG') == None
     True
 
+    lower-case is also vaild 
     >>> vet_codon('aug') == None
     True
 
+    DNA is not valid
     >>> vet_codon('ATG')
     Traceback (most recent call last):
         ...
     Exception: Invalid codon: 'ATG'
 
+    A codon must be exactly 3 RNA bases long
     >>> vet_codon('AUGG')
     Traceback (most recent call last):
         ...
@@ -105,7 +113,7 @@ def vet_codon(codon):
     ##########################################################################
     ############################ EDIT CODE BELOW #############################
     # `codon_pattern_str` needs to be a regular expression that will match any
-    # codon (but only one codon).
+    # codon (but only a string that is one codon).
     # Currently, `codon_pattern_str` is only a string of literal characters.
     # This is a valid regular expression, but it will only match 'AUG' exactly.
     # Change `codon_pattern_str` so that it will match any valid codons, and
@@ -173,6 +181,10 @@ def find_first_orf(sequence,
     vet_nucleotide_sequence(sequence)
 
     # Make sure the codons are valid
+    for codon in start_codons:
+        vet_codon(codon)
+    for codon in stop_codons:
+        vet_codon(codon)
 
     # Get copies of everything in uppercase
     seq = sequence.upper()
