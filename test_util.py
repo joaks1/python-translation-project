@@ -1,11 +1,15 @@
 #! /usr/bin/env python3
 
 import unittest
+import traceback
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 class TestBaseClass(unittest.TestCase):
     def get_failure_message_conditions(self, function, key_word_args):
         message = (
-                "\n\n"
                 "Calling `{function_name}` with the following parameters:\n".format(
                         function_name = function.__name__)
                 )
@@ -27,8 +31,8 @@ class TestBaseClass(unittest.TestCase):
 
         if result_is_exception:
             message += (
-                    "to be returned, but got the following error instead:\n"
-                    "\t{result!r}\n".format(result = result))
+                    "to be returned, but got the following error instead:\n\n"
+                    "{result}\n".format(result = result))
 
         else:
             message += (
@@ -39,18 +43,26 @@ class TestBaseClass(unittest.TestCase):
                     )
         return message
 
+    def demarcate_message(self, message):
+        return ("\n\n"
+                "**********************************************************************"
+                "\n"
+                "{message}"
+                "**********************************************************************"
+                "\n".format(message = message))
+
     def get_failure_message(self, function, key_word_args, expected_result,
             result, result_is_exception):
         message = self.get_failure_message_conditions(function, key_word_args)
         message += self.get_failure_message_issue(expected_result, result,
                 result_is_exception)
-        return message
+        return self.demarcate_message(message)
 
     def get_raise_failure_message(self, function, key_word_args, expected_exception):
         message = self.get_failure_message_conditions(function, key_word_args)
         message += "Expecting `{0}` to be raised, but it was not.".format(
                 expected_exception.__name__)
-        return message
+        return self.demarcate_message(message)
 
     def run_test_of_function(self, function, key_word_args, expected_result):
         result = None
@@ -58,7 +70,9 @@ class TestBaseClass(unittest.TestCase):
         try:
             result = function(**key_word_args)
         except BaseException as e:
-            result = e
+            f = StringIO()
+            traceback.print_exc(file=f)
+            result = f.getvalue()
             result_is_exception = True
             pass
         self.assertEqual(result, expected_result,
