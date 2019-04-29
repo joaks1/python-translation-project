@@ -60,7 +60,7 @@ class TestBaseClass(unittest.TestCase):
 
     def get_raise_failure_message(self, function, key_word_args, expected_exception):
         message = self.get_failure_message_conditions(function, key_word_args)
-        message += "Expecting `{0}` to be raised, but it was not.".format(
+        message += "Expecting `{0}` to be raised, but it was not.\n".format(
                 expected_exception.__name__)
         return self.demarcate_message(message)
 
