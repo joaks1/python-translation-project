@@ -116,27 +116,27 @@ do so in the following order:
 
 1.  Get tests of `get_reverse` function working:
 
-    $ python3 test_translate.py TestGetReverse
+        $ python3 test_translate.py TestGetReverse
 
 1.  Get tests of `get_complement` function working:
 
-    $ python3 test_translate.py TestGetComplement
+        $ python3 test_translate.py TestGetComplement
 
 1.  Get tests of `reverse_and_complement` function working:
 
-    $ python3 test_translate.py TestReverseAndComplement
+        $ python3 test_translate.py TestReverseAndComplement
 
 1.  Get tests of `translate_sequence` function working:
 
-    $ python3 test_translate.py TestTranslateSequence
+        $ python3 test_translate.py TestTranslateSequence
 
 1.  Get tests of `get_all_translations` function working:
 
-    $ python3 test_translate.py TestGetAllTranslations
+        $ python3 test_translate.py TestGetAllTranslations
 
 1.  Get tests of `get_longest_peptide` function working:
 
-    $ python3 test_translate.py TestGetLongestPeptide
+        $ python3 test_translate.py TestGetLongestPeptide
 
 
 **NOTE: You do NOT need to know how the tests work! You only need to add code
