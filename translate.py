@@ -88,9 +88,9 @@ def get_complement(sequence):
 
     Examples
     --------
-    >>> get_reverse('AUGC')
+    >>> get_complement('AUGC')
     'UACG'
-    >>> get_reverse('ATGC')
+    >>> get_complement('ATGC')
     'TACG'
     """
     pass
