@@ -249,8 +249,7 @@ def main():
     import argparse
 
     # Create a command-line parser object
-    parser = argparse.ArgumentParser(
-            formatter_class = argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser()
 
     default_start_codons = ['AUG']
     default_stop_codons = ['UAA', 'UAG', 'UGA']
