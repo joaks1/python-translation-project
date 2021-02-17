@@ -110,8 +110,6 @@ def get_reverse(sequence):
     --------
     >>> get_reverse('AUGC')
     'CGUA'
-    >>> get_reverse('ATGC')
-    'CGTA'
     """
     seq_list = list(sequence.upper())
     seq_list.reverse()
@@ -129,8 +127,6 @@ def get_complement(sequence):
     --------
     >>> get_complement('AUGC')
     'UACG'
-    >>> get_complement('ATGC')
-    'TACG'
     """
     rna_complement = {
             'A': 'U',
@@ -156,8 +152,6 @@ def reverse_and_complement(sequence):
     --------
     >>> reverse_and_complement('AUGC')
     'GCAU'
-    >>> reverse_and_complement('ATGC')
-    'GCAT'
     """
     reverse_seq = get_reverse(sequence)
     reverse_complement_seq = get_complement(reverse_seq)
