@@ -252,6 +252,9 @@ def main():
     parser = argparse.ArgumentParser(
             formatter_class = argparse.ArgumentDefaultsHelpFormatter)
 
+    default_start_codons = ['AUG']
+    default_stop_codons = ['UAA', 'UAG', 'UGA']
+
     # Tell the parser what command-line arguments this script can receive
     parser.add_argument('sequence',
             metavar = 'SEQUENCE',
@@ -264,16 +267,20 @@ def main():
             action = 'store_true',
             help = ('The sequence argument should be treated as a path to a '
                     'containing the sequence to be searched.'))
-    parser.add_argument('-s', '--start-codons',
+    parser.add_argument('-s', '--start-codon',
             type = str,
-            nargs = '+', # one or more arguments
-            default = ['AUG'],
-            help = ('One or more possible start codons.'))
-    parser.add_argument('-x', '--stop-codons',
+            action = 'append', # append each argument to a list
+            default = None,
+            help = ('A start codon. This option can be used multiple times '
+                    'if there are multiple start codons. '
+                    'Default: {0}.'.format(" ".join(default_start_codons))))
+    parser.add_argument('-x', '--stop-codon',
             type = str,
-            nargs = '+', # one or more arguments
-            default = ['UAA', 'UAG', 'UGA'],
-            help = ('One or more possible stop codons.'))
+            action = 'append', # append each argument to a list
+            default = None,
+            help = ('A stop codon. This option can be used multiple times '
+                    'if there are multiple stop codons. '
+                    'Default: {0}.'.format(" ".join(default_stop_codons))))
 
     # Parse the command-line arguments into a 'dict'-like container
     args = parser.parse_args()
@@ -285,12 +292,18 @@ def main():
     else:
         sequence = args.sequence
 
+    # Check to see if start/stop codons were provided by the caller. If not,
+    # use the defaults.
+    if not args.start_codon:
+        args.start_codon = default_start_codons
+    if not args.stop_codon:
+        args.stop_codon = default_stop_codons
+
     orf = find_first_orf(sequence = sequence,
-            start_codons = args.start_codons,
-            stop_codons = args.stop_codons)
+            start_codons = args.start_codon,
+            stop_codons = args.stop_codon)
     sys.stdout.write('{}\n'.format(orf))
 
 
 if __name__ == '__main__':
     main()
-
