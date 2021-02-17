@@ -74,8 +74,6 @@ def get_reverse(sequence):
     --------
     >>> get_reverse('AUGC')
     'CGUA'
-    >>> get_reverse('ATGC')
-    'CGTA'
     """
     pass
 
@@ -90,8 +88,6 @@ def get_complement(sequence):
     --------
     >>> get_complement('AUGC')
     'UACG'
-    >>> get_complement('ATGC')
-    'TACG'
     """
     pass
 
@@ -107,8 +103,6 @@ def reverse_and_complement(sequence):
     --------
     >>> reverse_and_complement('AUGC')
     'GCAU'
-    >>> reverse_and_complement('ATGC')
-    'GCAT'
     """
     pass
 
